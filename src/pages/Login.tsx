@@ -1,311 +1,525 @@
+
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, ButtonBase } from "@mui/material";
 import {
   SmartToy,
   TrendingUp,
   ReceiptLong,
   AutoAwesome,
   ArrowForward,
+  ShowChart,
+  BarChart,
+  PieChart,
+  QueryStats,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+const sampleQuestions = [
+  {
+    text: "Analyze the sales trend over time",
+    icon: <ShowChart />,
+  },
+  {
+    text: "What percentage of sales comes from each customer?",
+    icon: <PieChart />,
+  },
+ {
+  text: "Analyze all invoices, sales totals, and most-invoiced parts",
+  icon: <ReceiptLong />,
+},
+{
+  text: "Identify top customers by sales, explain their contribution",
+  icon: <QueryStats />,
+},
+];
+
+const features = [
+  {
+    icon: <SmartToy />,
+    title: "AI-powered answers",
+    description: "Ask questions in plain English.",
+  },
+  {
+    icon: <TrendingUp />,
+    title: "Sales analytics",
+    description: "Understand your business data.",
+  },
+  {
+    icon: <ReceiptLong />,
+    title: "Live ERP data",
+    description: "Explore your latest records.",
+  },
+  {
+    icon: <AutoAwesome />,
+    title: "Visual reports",
+    description: "Discover insights through charts.",
+  },
+];
+
+const Login: React.FC = () => {
   const navigate = useNavigate();
 
+  const handleSampleQuestion = (question: string) => {
+    navigate("/erp/ai-report", {
+      state: { samplePrompt: question },
+    });
+  };
+
   const handleTryNow = () => {
-    // Update this route if your AI Report page uses a different path.
-    navigate("/erp/");
+    navigate("/erp/ai-report");
   };
 
   return (
     <Box
       sx={{
-        width: "100%",
-        minHeight: "100dvh",
+        minHeight: "100vh",
         boxSizing: "border-box",
-        position: "relative",
-        overflow: "hidden",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        flexDirection: "column",
+        overflowX: "hidden",
+        color: "#F8FAFC",
+        background: `
+          radial-gradient(
+            ellipse at 90% 10%,
+            rgba(59, 130, 246, 0.22),
+            transparent 38%
+          ),
+          radial-gradient(
+            ellipse at 0% 100%,
+            rgba(124, 58, 237, 0.15),
+            transparent 35%
+          ),
+          linear-gradient(135deg, #0B1228 0%, #111D42 55%, #172F69 100%)
+        `,
         px: { xs: 2, sm: 3, md: 5 },
-        py: { xs: 4, md: 6 },
-        background:
-          "linear-gradient(135deg, #0f172a 0%, #172554 48%, #2563eb 100%)",
-        color: "#fff",
+        py: { xs: 2, md: 2.5 },
       }}
     >
-      {/* Background glow effects */}
-      <Box
-        aria-hidden="true"
-        sx={{
-          position: "absolute",
-          width: { xs: 260, md: 440 },
-          height: { xs: 260, md: 440 },
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.34), transparent 70%)",
-          top: { xs: -100, md: -150 },
-          right: { xs: -100, md: -80 },
-          pointerEvents: "none",
-        }}
-      />
-      <Box
-        aria-hidden="true"
-        sx={{
-          position: "absolute",
-          width: { xs: 250, md: 380 },
-          height: { xs: 250, md: 380 },
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(129,140,248,0.25), transparent 70%)",
-          bottom: { xs: -100, md: -140 },
-          left: { xs: -100, md: -80 },
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Centered main content */}
+      {/* Header */}
       <Box
         sx={{
-          position: "relative",
-          zIndex: 1,
           width: "100%",
-          maxWidth: 920,
+          maxWidth: 1440,
           mx: "auto",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          textAlign: "center",
+          gap: 1.5,
+          mb: { xs: 3, md: 1 },
         }}
       >
-        {/* Brand */}
         <Box
           sx={{
+            width: 44,
+            height: 44,
+            borderRadius: "13px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: 1.5,
-            mb: { xs: 3, md: 4 },
+            flexShrink: 0,
+            background: "linear-gradient(135deg, #60A5FA, #818CF8)",
+            boxShadow: "0 8px 28px rgba(96, 165, 250, 0.25)",
           }}
         >
-          <Box
-            sx={{
-              width: 50,
-              height: 50,
-              borderRadius: 2.5,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "linear-gradient(135deg, #60a5fa, #818cf8)",
-              boxShadow: "0 10px 30px rgba(59,130,246,0.35)",
-            }}
-          >
-            <SmartToy sx={{ fontSize: 30, color: "#fff" }} />
-          </Box>
-          <Typography
-            sx={{
-              fontSize: { xs: 19, md: 22 },
-              fontWeight: 750,
-              letterSpacing: "-0.4px",
-              color: "#fff",
-            }}
-          >
-            ERP AI Assistant
-          </Typography>
+          <SmartToy sx={{ fontSize: 27, color: "#FFFFFF" }} />
         </Box>
 
-        {/* Main heading */}
-        <Typography
-          component="h1"
-          sx={{
-            fontSize: { xs: 36, sm: 46, md: 62 },
-            lineHeight: 1.08,
-            fontWeight: 800,
-            letterSpacing: { xs: "-1px", md: "-2px" },
-            mb: 2.5,
-            color: "#fff",
-          }}
-        >
-          Your ERP data.
-          <br />
-          <Box
-            component="span"
-            sx={{
-              background: "linear-gradient(90deg, #60a5fa, #c4b5fd)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Smarter insights.
-          </Box>
-        </Typography>
-
-        {/* Description */}
         <Typography
           sx={{
-            maxWidth: 650,
-            mx: "auto",
-            mb: 3,
-            fontSize: { xs: 15, sm: 17 },
-            lineHeight: 1.8,
-            color: "rgba(255,255,255,0.76)",
-          }}
-        >
-          Ask questions about your ERP data and get intelligent answers,
-          analytics, and visual insights in seconds.
-        </Typography>
-
-        {/* Try Now button */}
-        <Button
-          variant="contained"
-          size="large"
-          endIcon={<ArrowForward />}
-          onClick={handleTryNow}
-          sx={{
-            px: 4,
-            py: 1.5,
-            mb: { xs: 4, md: 5 },
-            borderRadius: "12px",
-            textTransform: "none",
-            fontSize: 16,
+            fontSize: { xs: 17, sm: 20 },
             fontWeight: 700,
-            color: "#fff",
-            background: "linear-gradient(90deg, #3b82f6, #818cf8)",
-            boxShadow: "0 8px 25px rgba(59,130,246,0.35)",
-            transition: "all 0.25s ease",
-            "&:hover": {
-              background: "linear-gradient(90deg, #2563eb, #6366f1)",
-              transform: "translateY(-2px)",
-              boxShadow: "0 12px 30px rgba(59,130,246,0.45)",
-            },
+            letterSpacing: "-0.5px",
           }}
         >
-          Try Now
-        </Button>
+          ERP AI Assistant
+        </Typography>
 
-        {/* Feature cards */}
+        <Box sx={{ flex: 1 }} />
+
         <Box
           sx={{
-            width: "100%",
-            maxWidth: 780,
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, minmax(0, 1fr))",
-            },
-            gap: 1.5,
+            display: { xs: "none", sm: "flex" },
+            alignItems: "center",
+            gap: 1,
+            px: 1.5,
+            py: 0.75,
+            borderRadius: 20,
+            border: "1px solid rgba(148, 163, 184, 0.2)",
+            backgroundColor: "rgba(255,255,255,0.04)",
           }}
         >
-          <Feature
-            icon={<TrendingUp />}
-            title="Smart Analytics"
-            description="Turn ERP data into useful insights."
+          <Box
+            sx={{
+              width: 7,
+              height: 7,
+              borderRadius: "50%",
+              bgcolor: "#4ADE80",
+              boxShadow: "0 0 10px rgba(74, 222, 128, 0.5)",
+            }}
           />
-          <Feature
-            icon={<ReceiptLong />}
-            title="Sales Intelligence"
-            description="Explore orders, customers and parts."
-          />
-          <Feature
-            icon={<AutoAwesome />}
-            title="AI Assistant"
-            description="Ask questions using natural language."
-          />
-          <Feature
-            icon={<SmartToy />}
-            title="Interactive Reports"
-            description="Understand your data visually."
-          />
+          <Typography sx={{ fontSize: 12, color: "#CBD5E1" }}>
+            AI-powered ERP insights
+          </Typography>
         </Box>
       </Box>
 
-      {/* Footer */}
-      <Typography
-        sx={{
-          position: "absolute",
-          zIndex: 1,
-          bottom: 16,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          fontSize: 11,
-          color: "rgba(255,255,255,0.48)",
-          letterSpacing: "0.8px",
-        }}
-      >
-        AI • ERP • ANALYTICS
-      </Typography>
-    </Box>
-  );
-}
-
-function Feature({
-  icon,
-  title,
-  description,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        textAlign: "left",
-        gap: 1.5,
-        p: 2,
-        borderRadius: 3,
-        background: "rgba(255,255,255,0.07)",
-        border: "1px solid rgba(255,255,255,0.11)",
-        backdropFilter: "blur(8px)",
-        transition: "all 0.2s ease",
-        "&:hover": {
-          background: "rgba(255,255,255,0.12)",
-          borderColor: "rgba(147,197,253,0.4)",
-          transform: "translateY(-3px)",
-        },
-      }}
-    >
+      {/* Main two-column layout */}
       <Box
+        component="main"
         sx={{
-          width: 42,
-          height: 42,
-          borderRadius: 2,
-          display: "flex",
+          flex: 1,
+          width: "100%",
+          maxWidth: 1320,
+          mx: "auto",
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            md: "0.95fr 1.05fr",
+          },
           alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          background: "rgba(96,165,250,0.16)",
-          color: "#93c5fd",
-          "& svg": { fontSize: 23 },
+          gap: { xs: 4, md: 7, lg: 10 },
+          py: { xs: 2, md: 1 },
         }}
       >
-        {icon}
-      </Box>
-      <Box>
-        <Typography
+        {/* LEFT: Hero content */}
+        <Box
           sx={{
-            fontSize: 13,
-            fontWeight: 700,
-            color: "#fff",
-            mb: 0.4,
+            minWidth: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: { xs: "center", md: "flex-start" },
+            textAlign: { xs: "center", md: "left" },
           }}
         >
-          {title}
-        </Typography>
-        <Typography
+          <Box
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 1,
+              px: 1.5,
+              py: 0.75,
+              mb: 2.5,
+              borderRadius: 20,
+              border: "1px solid rgba(129, 140, 248, 0.28)",
+              background: "rgba(99, 102, 241, 0.10)",
+            }}
+          >
+            <AutoAwesome sx={{ fontSize: 16, color: "#A5B4FC" }} />
+            <Typography
+              sx={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: "#C7D2FE",
+                letterSpacing: 0.3,
+              }}
+            >
+              YOUR SMARTER ERP EXPERIENCE
+            </Typography>
+          </Box>
+
+          <Typography
+            component="h1"
+            sx={{
+              fontSize: {
+                xs: 38,
+                sm: 48,
+                md: 52,
+                lg: 62,
+              },
+              fontWeight: 800,
+              lineHeight: 1.08,
+              letterSpacing: { xs: "-1.5px", md: "-2.8px" },
+              mb: 2.5,
+            }}
+          >
+            Your ERP data.
+            <Box
+              component="span"
+              sx={{
+                display: "block",
+                background:
+                  "linear-gradient(90deg, #60A5FA 0%, #A5B4FC 60%, #C4B5FD 100%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Smarter insights.
+            </Box>
+          </Typography>
+
+          <Typography
+            sx={{
+              maxWidth: 500,
+              color: "#C0CCE1",
+              fontSize: { xs: 15, md: 17 },
+              lineHeight: 1.8,
+              mb: 3.5,
+            }}
+          >
+            Create a sales invoice, then ask the AI to analyze sales again
+            and check whether your updated data appears in its report.
+          </Typography>
+
+          <Button
+            onClick={handleTryNow}
+            variant="contained"
+            endIcon={<ArrowForward />}
+            sx={{
+              px: 3.5,
+              py: 1.5,
+              borderRadius: "12px",
+              textTransform: "none",
+              fontSize: 16,
+              fontWeight: 700,
+              color: "#FFFFFF",
+              background: "linear-gradient(100deg, #3B82F6, #6366F1)",
+              boxShadow: "0 10px 30px rgba(59, 130, 246, 0.24)",
+              transition: "all 0.2s ease",
+              "&:hover": {
+                background: "linear-gradient(100deg, #2563EB, #4F46E5)",
+                transform: "translateY(-2px)",
+                boxShadow: "0 14px 35px rgba(59, 130, 246, 0.35)",
+              },
+            }}
+          >
+            Try Now
+          </Button>
+
+          {/* Compact feature cards */}
+          <Box
+            sx={{
+              width: "100%",
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr 1fr",
+                sm: "1fr 1fr",
+              },
+              gap: 1.5,
+              mt: 4,
+            }}
+          >
+            {features.map((feature) => (
+              <Box
+                key={feature.title}
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 1.25,
+                  p: 1.5,
+                  borderRadius: "13px",
+                  border: "1px solid rgba(148, 163, 184, 0.13)",
+                  background: "rgba(255, 255, 255, 0.035)",
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    background: "rgba(255, 255, 255, 0.07)",
+                    borderColor: "rgba(129, 140, 248, 0.35)",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    color: "#93C5FD",
+                    display: "flex",
+                    mt: 0.15,
+                    "& svg": { fontSize: 21 },
+                  }}
+                >
+                  {feature.icon}
+                </Box>
+
+                <Box sx={{ minWidth: 0 }}>
+                  <Typography
+                    sx={{
+                      fontSize: 12.5,
+                      fontWeight: 700,
+                      color: "#F1F5F9",
+                      mb: 0.35,
+                    }}
+                  >
+                    {feature.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: 11,
+                      color: "#AAB9D2",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {feature.description}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
+        {/* RIGHT: Sample question panel */}
+        <Box
           sx={{
-            fontSize: 12,
-            color: "rgba(255,255,255,0.62)",
-            lineHeight: 1.5,
+            minWidth: 0,
+            position: "relative",
+            p: { xs: 2, sm: 3, md: 3.5 },
+            borderRadius: { xs: "20px", md: "24px" },
+            border: "1px solid rgba(148, 163, 184, 0.2)",
+            background:
+              "linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025))",
+            boxShadow: "0 25px 80px rgba(0, 0, 0, 0.16)",
+            backdropFilter: "blur(16px)",
+            "&::before": {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: "12%",
+              right: "12%",
+              height: "1px",
+              background:
+                "linear-gradient(90deg, transparent, rgba(147,197,253,0.65), transparent)",
+            },
           }}
         >
-          {description}
-        </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 2,
+              mb: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: { xs: 19, md: 22 },
+                fontWeight: 750,
+                letterSpacing: "-0.5px",
+              }}
+            >
+              Try asking your ERP AI
+            </Typography>
+
+            <Box
+              sx={{
+                width: 38,
+                height: 38,
+                flexShrink: 0,
+                borderRadius: "11px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#BFDBFE",
+                background: "rgba(59, 130, 246, 0.15)",
+                border: "1px solid rgba(96, 165, 250, 0.2)",
+              }}
+            >
+              <SmartToy sx={{ fontSize: 23 }} />
+            </Box>
+          </Box>
+
+          <Typography
+            sx={{
+              color: "#AAB9D2",
+              fontSize: 13,
+              mb: 2.5,
+            }}
+          >
+            Choose a question to get started.
+          </Typography>
+
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
+            {sampleQuestions.map((question, index) => (
+              <ButtonBase
+                key={question.text}
+                onClick={() => handleSampleQuestion(question.text)}
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  textAlign: "left",
+                  gap: 1.5,
+                  px: { xs: 1.5, sm: 2 },
+                  py: { xs: 1.5, sm: 1.7 },
+                  minHeight: 52,
+                  borderRadius: "12px",
+                  border: "1px solid rgba(148, 163, 184, 0.18)",
+                  background: "rgba(37, 56, 105, 0.48)",
+                  color: "#E8EEF9",
+                  transition: "all 0.18s ease",
+                  "&:hover": {
+                    background: "rgba(59, 130, 246, 0.17)",
+                    borderColor: "rgba(96, 165, 250, 0.55)",
+                    transform: "translateX(3px)",
+                  },
+                  "&:focus-visible": {
+                    outline: "2px solid #93C5FD",
+                    outlineOffset: 2,
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    color: "#93C5FD",
+                    display: "flex",
+                    flexShrink: 0,
+                    "& svg": { fontSize: 21 },
+                  }}
+                >
+                  {question.icon}
+                </Box>
+
+                <Typography
+                  sx={{
+                    flex: 1,
+                    minWidth: 0,
+                    fontSize: { xs: 12.5, sm: 14 },
+                    fontWeight: 500,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {question.text}
+                </Typography>
+
+                <ArrowForward
+                  sx={{
+                    flexShrink: 0,
+                    fontSize: 19,
+                    color: "#93C5FD",
+                  }}
+                />
+              </ButtonBase>
+            ))}
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              mt: 2.5,
+              px: 1.5,
+              py: 1.25,
+              borderRadius: "10px",
+              background: "rgba(15, 23, 42, 0.25)",
+            }}
+          >
+            <AutoAwesome
+              sx={{ color: "#A5B4FC", fontSize: 18, flexShrink: 0 }}
+            />
+            <Typography
+              sx={{
+                color: "#AAB9D2",
+                fontSize: 11.5,
+                lineHeight: 1.6,
+              }}
+            >
+              Select any prompt to open the assistant with your question
+              ready to use.
+            </Typography>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
-}
+};
+
+export default Login;

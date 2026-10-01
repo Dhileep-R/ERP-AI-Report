@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     IconButton,
@@ -6,7 +6,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -433,7 +433,7 @@ function ERPChart({
                             dataKey={chart.valueKey}
                             nameKey={chart.nameKey}
                             cx="50%"
-                            cy="45%"
+                            cy="50%"
                             outerRadius={105}
                             label={({ value }) => {
                                 const total = (chart.data || []).reduce(
@@ -562,6 +562,31 @@ export default function AIReport() {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const samplePrompt = location.state?.samplePrompt;
+
+        if (
+            typeof samplePrompt === "string" &&
+            samplePrompt.trim()
+        ) {
+            setInput(samplePrompt);
+
+            // Clear the navigation state after using it
+            navigate(location.pathname, {
+                replace: true,
+                state: null,
+            });
+        }
+    }, [
+        location.key,
+        location.pathname,
+        location.state,
+        navigate,
+    ]);
 
     const VITE_API_URL = import.meta.env.VITE_API_URL
 

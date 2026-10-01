@@ -8,7 +8,6 @@ import {
   AutoAwesome,
   ArrowForward,
   ShowChart,
-  BarChart,
   PieChart,
   QueryStats,
 } from "@mui/icons-material";
@@ -425,7 +424,7 @@ const Login: React.FC = () => {
           </Typography>
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
-            {sampleQuestions.map((question, index) => (
+            {sampleQuestions.map((question) => (
               <ButtonBase
                 key={question.text}
                 onClick={() => handleSampleQuestion(question.text)}
